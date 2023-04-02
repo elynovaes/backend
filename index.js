@@ -45,7 +45,26 @@ app.get('/api/persons/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
+})
 
+const generateId = (max, min) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min) + min)
+}
+
+app.post('/api/persons', (request, response) => {
+  const body = request.body
+
+  const person ={
+    id: generateId(1000000, 10),
+    name: body.name,
+    number: body.number
+  }
+
+  persons = persons.concat(person)
+
+  response.json(person)
 })
 
 const PORT = 3001
