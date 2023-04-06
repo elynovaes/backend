@@ -17,6 +17,7 @@ const morganInfo = (tokens, req, res) => {
 app.use(express.json())
 app.use(cors())
 app.use(morgan(morganInfo))
+app.use(express.static('build'))
 
 let persons = [
   { 
