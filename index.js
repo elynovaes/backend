@@ -41,10 +41,14 @@ app.get('/api/persons', (request, response) => {
   })
 })
 
-app.get('/info', (request, response) => {
-  const info = Date()
-
-  response.send(`<p>Phonebook has info for ${Person.length} persons</p><p>${info}</>`)
+app.get('/info', (request, response, next) => {
+  Person.countDocuments({})
+    .then(count => {
+      let info = `<p>Phonebook has info for ${count} people</p>`
+      info += new Date()
+      response.send(info)
+    })
+    .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
